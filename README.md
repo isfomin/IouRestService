@@ -2,7 +2,7 @@
 Solution for task 5 https://t.me/try2py/197
 
 ## REST API
-### list of users
+### Список пользователей
 input:
 ```
 GET http://localhost:8080/api/v1/user
@@ -30,7 +30,7 @@ output:
 ```
 
 
-### list of iou
+### Список долговых расписок
 input:
 ```
 GET http://localhost:8080/api/v1/iou
@@ -82,7 +82,7 @@ output:
 ```
 
 
-### list of summed iou
+### Список просуммированных долговых расписок
 input
 ```
 GET http://localhost:8080/api/v1/iou/summed
@@ -109,7 +109,7 @@ output:
 ```
 
 
-### add user
+### Добавить пользователя
 input:
 ```
 POST http://localhost:8080/api/v1/user
@@ -124,7 +124,7 @@ output:
 }
 ```
 
-### add iou
+### Добавить долговую расписку
 input:
 ```
 POST http://localhost:8080/api/v1/user
@@ -151,7 +151,7 @@ output:
 }
 ```
 
-### delete user
+### Удалить пользователя
 input:
 ```
 DELETE http://localhost:8080/api/v1/user
@@ -165,7 +165,7 @@ output:
 }
 ```
 
-### delete iou
+### Удалить долговую расписку
 input:
 ```
 DELETE http://localhost:8080/api/v1/iou
