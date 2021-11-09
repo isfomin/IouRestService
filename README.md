@@ -6,7 +6,7 @@
 
 ## REST API
 ### Список пользователей
-input:
+request:
 ```
 GET http://localhost:8080/api/v1/user
 request body: empty
@@ -34,7 +34,7 @@ output:
 
 
 ### Список долговых расписок
-input:
+request:
 ```
 GET http://localhost:8080/api/v1/iou
 request body: empty
@@ -86,7 +86,7 @@ output:
 
 
 ### Список просуммированных долговых расписок
-input
+request
 ```
 GET http://localhost:8080/api/v1/iou/summed
 request body: empty
@@ -113,7 +113,7 @@ output:
 
 
 ### Добавить пользователя
-input:
+request:
 ```
 POST http://localhost:8080/api/v1/user
 request body: { "name": "Jimmy" }
@@ -128,7 +128,7 @@ output:
 ```
 
 ### Добавить долговую расписку
-input:
+request:
 ```
 POST http://localhost:8080/api/v1/iou
 request body: {
@@ -155,7 +155,7 @@ output:
 ```
 
 ### Удалить пользователя
-input:
+request:
 ```
 DELETE http://localhost:8080/api/v1/user
 request body: { "id": 3 }
@@ -169,7 +169,7 @@ output:
 ```
 
 ### Удалить долговую расписку
-input:
+request:
 ```
 DELETE http://localhost:8080/api/v1/iou
 request body: { "id": 3 }
