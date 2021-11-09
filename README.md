@@ -130,7 +130,7 @@ output:
 ### Добавить долговую расписку
 input:
 ```
-POST http://localhost:8080/api/v1/user
+POST http://localhost:8080/api/v1/iou
 request body: {
     "lender": 1,
     "borrower": 2,
