@@ -1,0 +1,27 @@
+spring:
+  profiles:
+    active: develop
+---
+spring:
+  jpa:
+    show-sql: false
+    database: postgresql
+    generate-ddl: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/iou
+    username: postgres
+    password: postgres
+  config:
+    activate:
+      on-profile: develop
+---
+spring:
+  jpa:
+    show-sql: false
+    database: h2
+  datasource:
+    url: jdbc:h2:mem:iou;DB_CLOSE_ON_EXIT=false
+  config:
+    activate:
+      on-profile: test
