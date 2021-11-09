@@ -1,7 +1,7 @@
 # IouRestService
 Solution for task 5 https://t.me/try2py/197
 
-##REST API
+## REST API
 ### list of users
 input:
 ```
