@@ -1,4 +1,4 @@
-# IouRestService
+# IouRestService (Spring Boot Application)
 Решение задачи 5 https://t.me/try2py/197
 
 > Условие задачи:
