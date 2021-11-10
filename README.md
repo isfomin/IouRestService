@@ -33,6 +33,37 @@ output:
 ```
 
 
+### Добавить пользователя
+request:
+```
+POST http://localhost:8080/api/v1/user
+request body: { "name": "Jimmy" }
+``` 
+
+output:
+```
+{
+    "id": 3,
+    "name": "Jimmy"
+}
+```
+
+
+### Удалить пользователя
+request:
+```
+DELETE http://localhost:8080/api/v1/user
+request body: { "id": 3 }
+``` 
+
+output:
+```
+{
+    "message": "success"
+}
+```
+
+
 ### Список долговых расписок
 request:
 ```
@@ -112,21 +143,6 @@ output:
 ```
 
 
-### Добавить пользователя
-request:
-```
-POST http://localhost:8080/api/v1/user
-request body: { "name": "Jimmy" }
-``` 
-
-output:
-```
-{
-    "id": 3,
-    "name": "Jimmy"
-}
-```
-
 ### Добавить долговую расписку
 request:
 ```
@@ -154,19 +170,6 @@ output:
 }
 ```
 
-### Удалить пользователя
-request:
-```
-DELETE http://localhost:8080/api/v1/user
-request body: { "id": 3 }
-``` 
-
-output:
-```
-{
-    "message": "success"
-}
-```
 
 ### Удалить долговую расписку
 request:
