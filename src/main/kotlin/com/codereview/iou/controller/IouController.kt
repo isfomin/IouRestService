@@ -16,7 +16,7 @@ class IouController(
 ) {
 
     @GetMapping
-    fun getAllIou(): PromissoryNotesDto {
+    fun getAllIou(): PromissoryNotesDto = service.listPromissoryNotes()
         return service.listPromissoryNotes()
     }
 
