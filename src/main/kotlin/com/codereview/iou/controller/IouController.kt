@@ -17,8 +17,6 @@ class IouController(
 
     @GetMapping
     fun getAllIou(): PromissoryNotesDto = service.listPromissoryNotes()
-        return service.listPromissoryNotes()
-    }
 
     @GetMapping("/summed")
     fun getAllSummed(): PromissoryNotesSummedDto {

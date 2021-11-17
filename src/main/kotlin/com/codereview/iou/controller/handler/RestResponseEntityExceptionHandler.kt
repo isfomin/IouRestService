@@ -17,14 +17,14 @@ class RestResponseEntityExceptionHandler : ResponseEntityExceptionHandler() {
     @ExceptionHandler(ValidateException::class, IllegalArgumentException::class, Exception::class)
     fun handleIllegalArgumentException (ex: Exception, request: WebRequest): ResponseEntity<ExceptionDto> {
         return ResponseEntity<ExceptionDto>(
-            ExceptionDto(ex.message ?: ex.toString()), HttpHeaders(), HttpStatus.BAD_REQUEST
+            ExceptionDto(ex.message ?: ex.cause?.message ?: ex.toString()), HttpHeaders(), HttpStatus.BAD_REQUEST
         )
     }
 
     @ExceptionHandler(NotFoundException::class, NoSuchElementException::class)
     fun handleNotFoundException (ex: Exception, request: WebRequest): ResponseEntity<ExceptionDto> {
         return ResponseEntity<ExceptionDto>(
-            ExceptionDto(ex.message ?: ex.toString()), HttpHeaders(), HttpStatus.NOT_FOUND
+            ExceptionDto(ex.message ?: ex.cause?.message ?: ex.toString()), HttpHeaders(), HttpStatus.NOT_FOUND
         )
     }
 }
