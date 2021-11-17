@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/v1/iou")
-class IouController {
-
+class IouController(
     @Autowired
-    lateinit var service: PromissoryNoteService
+    var service: PromissoryNoteService
+) {
 
     @GetMapping
     fun getAllIou(): PromissoryNotesDto {

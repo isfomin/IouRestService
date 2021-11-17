@@ -14,13 +14,13 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
-class PromissoryNoteService {
+class PromissoryNoteService(
+    @Autowired
+    var iouRepository: PromissoryNoteRepository,
 
     @Autowired
-    lateinit var iouRepository: PromissoryNoteRepository
-
-    @Autowired
-    lateinit var userRepository: UserRepository
+    var userRepository: UserRepository
+) {
 
     val converter: PromissoryNoteConverter = Mappers.getMapper(PromissoryNoteConverter::class.java)
 
@@ -40,8 +40,9 @@ class PromissoryNoteService {
     }
 
     fun getPromissoryNote(id: Long): PromissoryNoteDto {
-        val user = iouRepository.findById(id).get()
-        return converter.convertToDto(user)
+        iouRepository.findById(id).get().run {
+            return converter.convertToDto(this)
+        }
     }
 
     fun deletePromissoryNote(promissoryNoteDto: PromissoryNoteDto): Int {

@@ -1,6 +1,5 @@
 package com.codereview.iou.util
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import java.util.*
 
 private val names = listOf(
@@ -16,11 +15,3 @@ fun genName(): String = names[getRandomValue(0, names.lastIndex)]
 fun genId(): Int = getRandomValue(1, Int.MAX_VALUE)
 
 fun genLongId(): Long = getRandomValue(100L, 9_999_999L)
-
-fun asJsonString(obj: Any): String {
-    return try {
-        ObjectMapper().writeValueAsString(obj)
-    } catch (e: Exception) {
-        throw RuntimeException(e)
-    }
-}

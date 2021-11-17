@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/v1/user")
-class UserController {
-
+class UserController(
     @Autowired
-    lateinit var service: UserService
+    var service: UserService
+) {
 
     @GetMapping()
     fun getAllUsers(): UsersDto {

@@ -13,12 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class UserService {
+class UserService(
+    @Autowired
+    var repository: UserRepository
+) {
 
     val converter: UserConverter = Mappers.getMapper(UserConverter::class.java)
-
-    @Autowired
-    lateinit var repository: UserRepository
 
     fun addUser(userDto: UserDto): User {
         val user = converter.convertToEntity(userDto)
