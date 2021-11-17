@@ -6,6 +6,7 @@ import com.codereview.iou.model.dto.UserDto
 import javassist.NotFoundException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,6 +26,7 @@ internal class PromissoryNoteServiceTest {
     lateinit var userService: UserService
 
     @Test
+    @DisplayName("when a service creates a promissory note, the entity should be returned and equal to the data transfer object")
     fun addPromissoryNote() {
         val userName1 = "Bobby"
         val userName2 = "Timofei"
@@ -48,11 +50,13 @@ internal class PromissoryNoteServiceTest {
     }
 
     @Test
+    @DisplayName("when note id is invalid, an error should be returned")
     fun getNotExistPromissoryNote() {
         assertThrows(NoSuchElementException::class.java) { iouService.getPromissoryNote(-1L) }
     }
 
     @Test
+    @DisplayName("when the transfer object is empty, an error should be returned")
     fun deleteEmptyPromissoryNote() {
         assertThrows(NotFoundException::class.java) {
             iouService.deletePromissoryNote(PromissoryNoteDto())

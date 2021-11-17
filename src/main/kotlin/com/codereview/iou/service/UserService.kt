@@ -4,7 +4,9 @@ import com.codereview.iou.model.converter.UserConverter
 import com.codereview.iou.model.dto.UserDto
 import com.codereview.iou.model.dto.UsersDto
 import com.codereview.iou.model.entity.User
+import com.codereview.iou.model.validation.validateUserNameEntity
 import com.codereview.iou.repository.UserRepository
+import com.codereview.iou.util.validate
 import javassist.NotFoundException
 import org.mapstruct.factory.Mappers
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,23 +22,31 @@ class UserService {
 
     fun addUser(userDto: UserDto): User {
         val user = converter.convertToEntity(userDto)
-        if (validateUserEntity(user)) {
+
+        user.validate(
+            "Username required in {$user} entity.",
+            ::validateUserNameEntity
+        ).run {
             return repository.save(user)
-        } else {
-            throw IllegalArgumentException("Entity {$user} not valid.")
         }
     }
 
     fun getUser(userId: Long): UserDto {
-        val user = repository.findById(userId).get()
-        return converter.convertToDto(user)
+        return repository.findById(userId).get().run {
+            converter.convertToDto(this)
+        }
     }
 
-    fun deleteUser(userDto: UserDto) {
+    fun deleteUser(userDto: UserDto): Int {
         if (userDto.id != null) {
-            repository.delete(converter.convertToEntity(userDto))
+            return if (repository.existsById(userDto.id!!)) {
+                repository.delete(converter.convertToEntity(userDto))
+                1
+            } else {
+                0
+            }
         } else {
-            throw NotFoundException("User #$userDto not found.")
+            throw NotFoundException("User {$userDto} not found.")
         }
     }
 
@@ -45,9 +55,5 @@ class UserService {
         return UsersDto(items.map {
             converter.convertToDto(it)
         })
-    }
-
-    fun validateUserEntity(user: User?): Boolean {
-        return user != null && (user.name?.isNotEmpty() ?: false)
     }
 }

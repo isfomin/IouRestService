@@ -3,8 +3,10 @@ package com.codereview.iou.service
 import com.codereview.iou.model.converter.PromissoryNoteConverter
 import com.codereview.iou.model.dto.*
 import com.codereview.iou.model.entity.PromissoryNote
+import com.codereview.iou.model.validation.checkOnEmptyPromissoryNoteEntity
 import com.codereview.iou.repository.PromissoryNoteRepository
 import com.codereview.iou.repository.UserRepository
+import com.codereview.iou.util.validate
 import javassist.NotFoundException
 import org.mapstruct.factory.Mappers
 import org.springframework.beans.factory.annotation.Autowired
@@ -29,10 +31,11 @@ class PromissoryNoteService {
             amount = promissoryNoteDto.amount
         }
 
-        if (validatePromissoryNoteEntity(promissoryNote)) {
+        promissoryNote.validate(
+            "Entity {$promissoryNote} should not have empty fields.",
+            ::checkOnEmptyPromissoryNoteEntity
+        ).run {
             return iouRepository.save(promissoryNote)
-        } else {
-            throw IllegalArgumentException("Entity {$promissoryNote} not valid.")
         }
     }
 
@@ -41,11 +44,16 @@ class PromissoryNoteService {
         return converter.convertToDto(user)
     }
 
-    fun deletePromissoryNote(promissoryNoteDto: PromissoryNoteDto) {
+    fun deletePromissoryNote(promissoryNoteDto: PromissoryNoteDto): Int {
         if (promissoryNoteDto.id != null) {
-            iouRepository.delete(converter.convertToEntity(promissoryNoteDto))
+            return if (iouRepository.existsById(promissoryNoteDto.id!!)) {
+                iouRepository.delete(converter.convertToEntity(promissoryNoteDto))
+                1
+            } else {
+                0
+            }
         } else {
-            throw NotFoundException("Promissory note $promissoryNoteDto not found.")
+            throw NotFoundException("Promissory note {$promissoryNoteDto} not found.")
         }
     }
 
@@ -85,11 +93,5 @@ class PromissoryNoteService {
             }
 
         return PromissoryNotesSummedDto(grouping)
-    }
-
-    fun validatePromissoryNoteEntity(promissoryNote: PromissoryNote?): Boolean {
-        return promissoryNote?.lender != null
-                && promissoryNote.borrower != null
-                && promissoryNote.amount != null
     }
 }

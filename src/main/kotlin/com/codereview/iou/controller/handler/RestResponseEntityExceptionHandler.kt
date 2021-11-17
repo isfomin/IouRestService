@@ -1,6 +1,7 @@
 package com.codereview.iou.controller.handler
 
 import com.codereview.iou.model.dto.ExceptionDto
+import com.codereview.iou.util.exeption.ValidateException
 import javassist.NotFoundException
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
@@ -13,7 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 class RestResponseEntityExceptionHandler : ResponseEntityExceptionHandler() {
 
-    @ExceptionHandler(IllegalArgumentException::class)
+    @ExceptionHandler(ValidateException::class, IllegalArgumentException::class, Exception::class)
     fun handleIllegalArgumentException (ex: Exception, request: WebRequest): ResponseEntity<ExceptionDto> {
         return ResponseEntity<ExceptionDto>(
             ExceptionDto(ex.message ?: ex.toString()), HttpHeaders(), HttpStatus.BAD_REQUEST

@@ -4,11 +4,13 @@ import com.codereview.iou.model.dto.PromissoryNoteDto
 import com.codereview.iou.model.dto.PromissoryNoteSummedDto
 import com.codereview.iou.model.entity.User
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 class GroupingTest {
 
     @Test
+    @DisplayName("when a several promissory notes with the same participants then summed list of promissory notes should be returned")
     fun groupingTest() {
         val user1 = User().apply { id = 0; name = "Bobby" }
         val user2 = User().apply { id = 1; name = "Timofei" }

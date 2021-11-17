@@ -1,6 +1,7 @@
 package com.codereview.iou.controller
 
 import com.codereview.iou.model.dto.MessageDto
+import com.codereview.iou.model.dto.RemovedMessageDto
 import com.codereview.iou.model.dto.UserDto
 import com.codereview.iou.model.dto.UsersDto
 import com.codereview.iou.model.entity.User
@@ -33,8 +34,8 @@ class UserController {
     }
 
     @DeleteMapping
-    fun deleteUser(@RequestBody userDto: UserDto): ResponseEntity<MessageDto> {
-        service.deleteUser(userDto)
-        return ResponseEntity(MessageDto("success"), HttpStatus.OK)
+    fun deleteUser(@RequestBody userDto: UserDto): ResponseEntity<RemovedMessageDto> {
+        val countRemoved = service.deleteUser(userDto)
+        return ResponseEntity(RemovedMessageDto(if (countRemoved > 0) "success" else "not found", countRemoved), HttpStatus.OK)
     }
 }

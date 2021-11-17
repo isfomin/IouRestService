@@ -1,3 +1,3 @@
 package com.codereview.iou.model.dto
 
-class PromissoryNotesDto(val notes: List<PromissoryNoteDto>)
+data class PromissoryNotesDto(val notes: List<PromissoryNoteDto>)

@@ -36,8 +36,8 @@ class IouController {
     }
 
     @DeleteMapping
-    fun deleteUser(@RequestBody promissoryNoteDto: PromissoryNoteDto): ResponseEntity<MessageDto> {
-        service.deletePromissoryNote(promissoryNoteDto)
-        return ResponseEntity(MessageDto("success"), HttpStatus.OK)
+    fun deleteUser(@RequestBody promissoryNoteDto: PromissoryNoteDto): ResponseEntity<RemovedMessageDto> {
+        val countRemoved = service.deletePromissoryNote(promissoryNoteDto)
+        return ResponseEntity(RemovedMessageDto(if (countRemoved > 0) "success" else "not found", countRemoved), HttpStatus.OK)
     }
 }

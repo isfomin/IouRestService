@@ -1,3 +1,3 @@
 package com.codereview.iou.model.dto
 
-class PromissoryNotesSummedDto(val notes: List<PromissoryNoteSummedDto>)
+data class PromissoryNotesSummedDto(val notes: List<PromissoryNoteSummedDto>)

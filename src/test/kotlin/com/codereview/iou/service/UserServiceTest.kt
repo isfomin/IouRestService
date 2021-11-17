@@ -1,9 +1,11 @@
 package com.codereview.iou.service
 
 import com.codereview.iou.model.dto.UserDto
+import com.codereview.iou.util.exeption.ValidateException
 import javassist.NotFoundException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,6 +22,7 @@ internal class UserServiceTest {
     lateinit var service: UserService
 
     @Test
+    @DisplayName("when a service creates a user, the entity should be returned and equal to the data transfer object")
     fun addUser() {
         val userName = "Bobby"
         val userDto1 = UserDto().apply { name = userName }
@@ -30,16 +33,18 @@ internal class UserServiceTest {
     }
 
     @Test
+    @DisplayName("when user dto is empty, an error should be returned")
     fun addEmptyUser() {
         val userName = ""
         val userDto1 = UserDto().apply { name = userName }
 
-        assertThrows(IllegalArgumentException::class.java) {
+        assertThrows(ValidateException::class.java) {
             service.addUser(userDto1)
         }
     }
 
     @Test
+    @DisplayName("when user id is invalid, an error should be returned")
     fun getNotExistUser() {
         assertThrows(NoSuchElementException::class.java) {
             service.getUser(-1L)
@@ -47,6 +52,7 @@ internal class UserServiceTest {
     }
 
     @Test
+    @DisplayName("when user dto is empty, an error should be returned")
     fun deleteEmptyUser() {
         assertThrows(NotFoundException::class.java) {
             service.deleteUser(UserDto())
@@ -54,6 +60,7 @@ internal class UserServiceTest {
     }
 
     @Test
+    @DisplayName("when a service get list of users, the data transfer object should be returned")
     fun listUsers() {
         val userName1 = "Bobby"
         val userName2 = "Timofei"
