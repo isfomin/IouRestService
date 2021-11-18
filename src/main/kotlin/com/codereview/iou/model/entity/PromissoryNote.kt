@@ -7,16 +7,16 @@ class PromissoryNote(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    var id: Long? = null,
+    var id: Long = 0,
 
     @OneToOne
     @JoinColumn(name = "lender_id", nullable = false)
-    var lender: User? = null,
+    var lender: User = User(),
 
     @OneToOne
     @JoinColumn(name = "borrower_id", nullable = false)
-    var borrower: User? = null,
+    var borrower: User = User(),
 
     @Column(name = "amount", nullable = false)
-    var amount: Double? = null
+    var amount: Double = 0.00
 )

@@ -27,7 +27,7 @@ internal class UserServiceTest {
         val userName = "Bobby"
         val userDto1 = UserDto().apply { name = userName }
         val user = service.addUser(userDto1)
-        val userDto = service.getUser(user.id!!)
+        val userDto = service.getUser(user.id)
 
         assertEquals(userName, userDto.name)
     }

@@ -44,8 +44,8 @@ internal class PromissoryNoteServiceTest {
 
         val promissoryNote = iouService.addPromissoryNote(promissoryNoteDto)
 
-        assertEquals(userName1, promissoryNote.lender!!.name)
-        assertEquals(userName2, promissoryNote.borrower!!.name)
+        assertEquals(userName1, promissoryNote.lender.name)
+        assertEquals(userName2, promissoryNote.borrower.name)
         assertEquals(amount, promissoryNote.amount)
     }
 

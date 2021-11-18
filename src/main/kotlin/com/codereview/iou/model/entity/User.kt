@@ -7,8 +7,8 @@ class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    var id: Long? = null,
+    var id: Long = 0,
 
     @Column(nullable = false)
-    var name: String? = null
+    var name: String = ""
 )

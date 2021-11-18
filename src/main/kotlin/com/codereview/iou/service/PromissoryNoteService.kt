@@ -10,7 +10,6 @@ import com.codereview.iou.util.validate
 import javassist.NotFoundException
 import org.mapstruct.factory.Mappers
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
@@ -26,16 +25,16 @@ class PromissoryNoteService(
 
     fun addPromissoryNote(promissoryNoteDto: PromissoryNoteCreateDto): PromissoryNote {
         val promissoryNote = PromissoryNote().apply {
-            lender = userRepository.findByIdOrNull(promissoryNoteDto.lender)
-            borrower = userRepository.findByIdOrNull(promissoryNoteDto.borrower)
-            amount = promissoryNoteDto.amount
+            lender = userRepository.findById(promissoryNoteDto.lender!!).get()
+            borrower = userRepository.findById(promissoryNoteDto.borrower!!).get()
+            amount = promissoryNoteDto.amount!!
         }
 
         promissoryNote.validate(
             "Entity {$promissoryNote} should not have empty fields.",
             ::checkOnEmptyPromissoryNoteEntity
         ).run {
-            return iouRepository.save(promissoryNote)
+            return iouRepository.save(this)
         }
     }
 
@@ -77,12 +76,12 @@ class PromissoryNoteService(
         val list = iouRepository.findAll()
 
         val grouping = list
-            .groupingBy { "${it.lender?.id}-${it.borrower?.id}" }
+            .groupingBy { "${it.lender.id}-${it.borrower.id}" }
             .reduce { _, accumulator, element ->
                 PromissoryNote().apply {
                     lender = accumulator.lender
                     borrower = accumulator.borrower
-                    amount = accumulator.amount?.plus(element.amount!!)
+                    amount = accumulator.amount.plus(element.amount)
                 }
             }
             .map {

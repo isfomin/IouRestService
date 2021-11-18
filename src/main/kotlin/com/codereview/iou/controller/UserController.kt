@@ -19,9 +19,7 @@ class UserController(
 ) {
 
     @GetMapping()
-    fun getAllUsers(): UsersDto {
-        return service.listUsers()
-    }
+    fun getAllUsers(): UsersDto = service.listUsers()
 
     @PostMapping
     fun addUser(@RequestBody userDto: UserDto): User {

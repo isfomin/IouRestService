@@ -27,7 +27,7 @@ class UserService(
             "Username required in {$user} entity.",
             ::validateUserNameEntity
         ).run {
-            return repository.save(user)
+            return repository.save(this)
         }
     }
 

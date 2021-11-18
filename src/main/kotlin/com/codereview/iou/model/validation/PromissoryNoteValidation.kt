@@ -4,6 +4,5 @@ import com.codereview.iou.model.entity.PromissoryNote
 
 fun checkOnEmptyPromissoryNoteEntity(promissoryNote: PromissoryNote?): Boolean {
     return promissoryNote?.lender != null
-            && promissoryNote.borrower != null
-            && promissoryNote.amount != null
+            && promissoryNote.borrower.name != ""
 }
